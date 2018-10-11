@@ -1,0 +1,39 @@
+{% block header %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Інформаційно-пошукова система "Спіраль"</title>
+    <link rel="shortcut icon" href="/public/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/resourses/assets/libs/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/resourses/assets/libs/fontawesome-free-5.2.0-web/css/all.css">
+    <link rel="stylesheet" href="/resourses/assets/libs/leaflet/leaflet.css">
+    <link rel="stylesheet" href="/public/css/app.css">
+</head>
+<header class="container-fluid helix_nav p-0">
+    <nav class="container navbar navbar-light">
+        <div class="row flex-row justify-content-between w-100">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link  active" href="/helix/search">Пошук</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/helix/analyze">Аналіз трафіку</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+            <div class="logo">
+                <a href="/helix/search"><img class="img-fluid" src="/public/img/golden-helix.png" alt=""></a>
+            </div>
+        </div>
+    </nav>
+</header>
+{% endblock %}

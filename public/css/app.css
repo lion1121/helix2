@@ -1,0 +1,49 @@
+.helix_nav {
+  background-color: #F0F8FF; }
+  .helix_nav .nav-link {
+    color: #000; }
+  .helix_nav .nav-item:hover {
+    background-color: #9CC2FF; }
+
+.logo {
+  width: 80px; }
+
+.btn_up {
+  bottom: 20px;
+  right: 30px;
+  cursor: pointer;
+  border-radius: 5px; }
+  .btn_up:hover {
+    background-color: #69e9fd !important; }
+
+.wrap_table_result {
+  top: 3px;
+  right: -36px;
+  font-size: 24px;
+  cursor: pointer; }
+
+.table_container table {
+  border: 2px solid #000; }
+
+.icon::before {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased; }
+
+.trash:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f1f8"; }
+
+.stat_table_container {
+  max-height: 450px;
+  overflow: auto;
+  box-sizing: border-box; }
+
+#sb_map {
+  height: 75vh; }
+
+.hide {
+  display: none; }

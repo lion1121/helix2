@@ -1,0 +1,20 @@
+{
+  "name": "kevinsmith/no-framework",
+  "description": "An example of a modern PHP application bootstrapped without a framework.",
+  "type": "project",
+  "require": {
+    "nikic/fast-route": "^1.3",
+    "twig/twig": "^2.0",
+    "ext-iconv": "*",
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "phpoffice/phpspreadsheet": "^1.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Core\\": "app/Core",
+      "Support\\": "app/Support",
+      "Helpers\\": "app/Helpers"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+.btn_up {
+  bottom: 20px;
+  right: 30px;
+  cursor: pointer;
+  border-radius: 5px ;
+    &:hover {
+      background-color: #69e9fd !important;
+    }
+}

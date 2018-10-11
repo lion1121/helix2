@@ -1,0 +1,12 @@
+.helix_nav {
+  background-color: $primary-bg-color;
+  .nav-link {
+    color: $primary-text-color;
+  }
+  .nav-item:hover {
+    background-color: #9CC2FF;
+  }
+}
+.logo {
+  width: 80px;
+}

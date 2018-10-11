@@ -1,0 +1,174 @@
+{% block header %}
+    {% include '_layouts/helixheader.twig' %}
+{% endblock %}
+<body>
+<section>
+    <div class="container">
+        <div class="row">
+            <form name="analyze" action="/helix/analyze" method="POST" enctype="multipart/form-data">
+                <div class="form-row align-items-end">
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Виберіть трафік у форматі .txt або .xls(s)</label>
+                        <input type="file" class="form-control-file btn bg-info" name="traffic"
+                               id="exampleFormControlFile1">
+                    </div>
+                    <div class="form-group">
+                        <button type="file" class="form-control-file btn btn-success ml-5 p-2" id="btn_analyze">Додати
+                            трафік <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            {% if tables %}
+                <div class="col-12  bg-info ">
+                    <h6>Завантажені трафіки:</h6>
+                    <table class="table table-hover bg-light text-center table-striped">
+                        <thead>
+                        <tr>
+                            <td>Назва трафіку</td>
+                            <td>Операція</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for table in tables %}
+                            <tr>
+                                <td class="clearfix"><i class="fa fa-file-alt float-left bg-light"></i> {{ table }}</td>
+                                <td>
+                                    <button data-table="{{ table }}" class="btn btn-info traffic analyze_traffic">
+                                        Аналізувати <i class="fa fa-search"></i></button>
+                                </td>
+                                <td class="btn_wrapper">
+
+                                    <button type="button" data-table="{{ table }}"
+                                            class="btn btn-danger traffic delete_traffic icon trash">
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="row">
+            <div class="accordion w-100 mt-3" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                    aria-expanded="true" aria-controls="collapseOne">
+                                <strong>Статистика з'єднаннь</strong>
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                         data-parent="#accordionExample">
+                        <div class="card-body">
+                            <p id="stat_info">Для отримання інформації проаналізуйте один з завантажених трафіків</p>
+                            <div class="stat_table_container pb-2 hide" id="stat_table_container">
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"> <i class="fa fa-phone"></i> </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="tb-search" placeholder="Фільтрувати по тб">
+                                </div>
+
+                                <table class="table table-hover bg-light text-center table-striped " id="stat_table">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <td><strong>TA</strong></td>
+                                        <td><strong>TB</strong></td>
+                                        <td><strong>Type</strong></td>
+                                        <td><strong>Тривалість</strong></td>
+                                        <td><strong>Кількість дзвінків/смс</strong></td>
+                                    </tr>
+
+
+                                    </thead>
+                                    <tbody id="statistic_table">
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                    data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <strong>Відобразити зв'язки на карті</strong>
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <p id="stat_info">Для отримання інформації проаналізуйте один з завантажених трафіків</p>
+                            <div class="map_btn_container d-flex justify-content-around ">
+                                <button class="btn btn-danger " id="showAllConnections" data-toggle="modal" data-target="#exampleModalCenter">Відобразити всі зв'язки <i class="fa fa-map"></i></button>
+                                <button class="btn btn-danger " id="showConnectionTOT">Відобразити зв'язки на ТОТ <i class="fa fa-map"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Collapsible Group Item #3
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                         data-parent="#accordionExample">
+                        <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
+                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
+                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                            probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 100%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Карта України</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" >
+                <div class="" id="sb_map"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="mt-4">
+
+</footer>
+<script src="/resourses/assets/libs/jquery/jquery.js"></script>
+<script src="/resourses/assets/libs/bootstrap/js/bootstrap.js"></script>
+<script src="/resourses/assets/libs/leaflet/leaflet.js"></script>
+<script src="/public/js/analyze.js"></script>
+
+</body>

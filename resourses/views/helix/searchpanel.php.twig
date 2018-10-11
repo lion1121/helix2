@@ -1,0 +1,100 @@
+{% block header %}
+    {% include '_layouts/helixheader.twig' %}
+{% endblock %}
+<body>
+<div class="container " >
+    <div class="row">
+        <section class="helix_section">
+            <h6 class="mt-3">Доступні критерії для пошуку</h6>
+            <form id="searchform" class="" name="searchform">
+                <div class="form-group row">
+                    <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+                    <div class="input-group mb-2 mr-sm-2 ">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-user"></i></div>
+                        </div>
+                        <input type="text" data-field="surname" class="form-control search_field_input" id="surname"
+                               placeholder="Прізвище">
+                    </div>
+                    <div class="input-group mb-2 mr-sm-2 ">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-user"></i></div>
+                        </div>
+                        <input type="text" data-field="name" class="form-control search_field_input" id="name"
+                               placeholder="Ім'я">
+                    </div>
+                    <div class="input-group mb-2 mr-sm-2 ">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-user"></i></div>
+                        </div>
+                        <input type="text" data-field="patronymic" class="form-control search_field_input"
+                               id="patronymic"
+                               placeholder="По батькові">
+                    </div>
+                    <div class="input-group mb-2 mr-sm-2 ">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                        </div>
+                        <input type="text" data-field="dob" class="form-control search_field_input" id="dob"
+                               placeholder="Дата народження">
+                    </div>
+                    <div class="input-group mb-2 mr-sm-2 ">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-phone"></i></div>
+                        </div>
+                        <input type="text" data-field="phone" class="form-control search_field_input" id="phone"
+                               placeholder="Телефон">
+                    </div>
+                    <div class="input-group mb-2 mr-sm-2 ">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-id-card-alt"></i></div>
+                        </div>
+                        <input type="text" data-field="ipn" class="form-control search_field_input" id="ipn"
+                               placeholder="ІПН">
+                    </div>
+                    <div class="input-group mb-2 mr-sm-2 ">
+
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-database"></i></div>
+                        </div>
+                        <select class="form-control" id="dbselect">
+                            <option value="0">Всі бази</option>
+                            {% for table in tables %}
+                                <option value="{{ table.id }}">{{ table.table_output }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {#<div class="form-group form-check">#}
+                        {#<input type="checkbox" class="form-check-input" id="exampleCheck1" value="1">#}
+                        {#<label class="form-check-label" for="exampleCheck1">Детальний пошук (Потребує більше часу на#}
+                            {#обробку запиту)</label>#}
+                    {#</div>#}
+                </div>
+                <p id="error_field"></p>
+                <button type="submit" id="search_btn" class="btn btn-primary mb-2">Пошук <i id="search_icon" class="fas fa-search"></i></button>
+                <button type="submit" id="search_btn" class="btn btn-info mb-2">Очистити</button>
+            </form>
+        </section>
+        <section>
+            {#Input result of searching from ajax#}
+        </section>
+    </div>
+    <div class="row">
+        <section class="w-100 " id="search">
+
+        </section>
+    </div>
+
+</div>
+<footer>
+    <div class="position-absolute align-bottom bg-info pt-2 pb-2 pl-4 pr-4 btn_up">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+</footer>
+<script src="/resourses/assets/libs/jquery/jquery.js"></script>
+<script src="/resourses/assets/libs/bootstrap/js/bootstrap.js"></script>
+<script   src="/resourses/assets/libs/imask/imask.js"></script>
+<script  src="/public/js/app.js"></script>
+
+</body>
+<?php require_once ROOT . '/resourses/templates/helixfooter.php' ?>

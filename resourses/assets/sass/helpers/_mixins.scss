@@ -1,0 +1,11 @@
+@mixin color-link($colorlink){
+  color: $colorlink;
+  &:link {
+    text-decoration: none;
+    color: $colorlink;
+  }
+  &:visited {
+    text-decoration: none;
+    color: $colorlink;
+  }
+}

@@ -25,6 +25,13 @@
 .table_container table {
   border: 2px solid #000; }
 
+#saveIntoXls {
+  position: absolute;
+  top: -41px;
+  right: 11px;
+  font-size: 25px;
+  cursor: pointer; }
+
 .icon::before {
   display: inline-block;
   font-style: normal;

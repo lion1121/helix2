@@ -1,5 +1,4 @@
 // import * as  IMask from '../../resourses/assets/libs/imask/imask.js';
-
 class formHandler {
 
     constructor() {
@@ -41,8 +40,8 @@ class formHandler {
 
     getDob() {
         let dob;
-        dob = document.getElementById('dob').value.replace(/_|-/g,'').toString();
-        if(dob.length > 2) {
+        dob = document.getElementById('dob').value.replace(/_|-/g, '').toString();
+        if (dob.length > 2) {
             return dob;
         } else {
             return '';
@@ -51,7 +50,7 @@ class formHandler {
 
     getPhone() {
         let phone;
-        phone = document.getElementById('phone').value.replace(/\D/g,'').toString();
+        phone = document.getElementById('phone').value.replace(/\D/g, '').toString();
         return phone;
     }
 
@@ -74,12 +73,12 @@ class formHandler {
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
             },
             body: 'name=' + this.getName() + '&' +
-            'surname=' + this.getSurname() + '&' +
-            'patronymic=' + this.getPatronymic() + '&' +
-            'dob=' + this.getDob() + '&' +
-            'phone=' + this.getPhone() + '&' +
-            'ipn=' + this.getPersonalId() + '&' +
-            'tableid=' + this.getSelectedTableName()
+                'surname=' + this.getSurname() + '&' +
+                'patronymic=' + this.getPatronymic() + '&' +
+                'dob=' + this.getDob() + '&' +
+                'phone=' + this.getPhone() + '&' +
+                'ipn=' + this.getPersonalId() + '&' +
+                'tableid=' + this.getSelectedTableName()
         })
             .then(function (res) {
                 document.getElementById('search_icon').classList.remove('fa-search');
@@ -93,7 +92,7 @@ class formHandler {
                 console.log(data);
                 for (const key of Object.keys(data)) {
                     // If empty result don't show empty table
-                    if(data[key].length === 0) {
+                    if (data[key].length === 0) {
                         continue;
                     }
                     //Create tableWrapper
@@ -187,16 +186,40 @@ class formHandler {
                 console.log('Request failed', error);
             });
     }
-    checkEmptyInputs()
-    {
-        if(this.getSurname().length === 0 && this.getName().length === 0 && this.getPatronymic().length === 0
-        && this.getPhone().length === 0 && this.getPersonalId().length === 0){
+
+    checkEmptyInputs() {
+        if (this.getSurname().length === 0 && this.getName().length === 0 && this.getPatronymic().length === 0
+            && this.getPhone().length === 0 && this.getPersonalId().length === 0) {
             return false;
         } else {
             return true;
         }
     }
+
+    saveResult(data) {
+        // fetch('/download', {
+        //     method: 'post',
+        //     headers: {
+        //         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        //     },
+        //     body: 'saveResult=' + data
+        // }).then(function () {
+        //     document.location = '/download';
+        // });
+
+
+            $.ajax({
+                url: '/download',
+                type: 'post',
+                data: {saveResult: '1'},
+                success: function(response){
+                    window.location = response;
+                }
+            });
+
+    }
 }
+
 // Init masks on form inputs
 let start = new formHandler();
 
@@ -204,15 +227,19 @@ let start = new formHandler();
 let sendAjaxRequest = document.getElementById('search_btn').addEventListener('click', function (e) {
     e.preventDefault();
     let formHendler = new formHandler();
-    if(formHendler.checkEmptyInputs() === true) {
+    if (formHendler.checkEmptyInputs() === true) {
         formHendler.formDataAjaxPostRequest();
         formHendler.formError.innerHTML = '';
+        let saveIntoXls = document.getElementById('saveIntoXls');
+        saveIntoXls.style.display = 'block';
 
     } else {
         formHendler.formError.classList.add('bg-danger');
         formHendler.formError.classList.add('text-center');
-        formHendler.formError.innerHTML = '<strong>'+'Заповніть хоча б одне поле!'+'</strong>';
+        formHendler.formError.innerHTML = '<strong>' + 'Заповніть хоча б одне поле!' + '</strong>';
     }
+    let resultContainer = document.getElementById('search');
+    resultContainer.classList.add('savebtn');
 });
 
 // Display only available fields
@@ -257,3 +284,28 @@ document.addEventListener('click', function (e) {
     }
 });
 
+// let table = document.getElementById('tableTest');
+// console.log(table);
+//
+// let workbook = XLSX.utils.book_new();
+// let wb1 = XLSX.utils.table_to_sheet(document.getElementById('tableTest'), {sheet: "Some sheet"});
+// XLSX.utils.book_append_sheet(workbook, wb1, "Sheet2");
+// let wb2 = XLSX.utils.table_to_sheet(document.getElementById('tableTest1'), {sheet: "Some sheet"});
+// XLSX.utils.book_append_sheet(workbook, wb2, "Sheet3");
+//
+//
+// let wbout = XLSX.write(workbook, {bookType:'xlsx', bookSST:true,type:'binary'});
+//
+//
+// function s2ab(s) {
+//     let buf = new ArrayBuffer(s.length);
+//     let view = new Uint8Array(buf);
+//     for(let i = 0; i < s.length; i++){
+//         view[i] = s.charCodeAt(i) & 0xFF;
+//     }
+//     return buf;
+// }
+
+let saveResult = document.getElementById('saveIntoXls').addEventListener('click', function () {
+        start.saveResult('1');
+});

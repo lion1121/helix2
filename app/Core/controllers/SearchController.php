@@ -2,11 +2,14 @@
 
 namespace Core\controllers;
 
+use Complex\Exception;
 use Core\Models\Helix;
 
+use DOMDocument;
 use Support\search\GetDbs;
 use Support\search\GetTableById;
 use Support\Twig\TwigView;
+use Support\XlsWriter\XlsWriter;
 
 
 class SearchController
@@ -21,9 +24,11 @@ class SearchController
     public function index()
     {
         $helixTables = $this->getDbs();
+        $curentDate = \date("Y-m-d");
         try {
             $twig = new TwigView('/helix/searchpanel.php.twig', [
-                'tables' => $helixTables
+                'tables' => $helixTables,
+                'date' => $curentDate
             ]);
 
             echo $twig->render();
@@ -82,6 +87,43 @@ class SearchController
             echo json_encode($tableName);
         }
         
+    }
+
+    function file_force_download($file) {
+           if (file_exists($file)) {
+               header('Content-Description: File Transfer');
+               header('Content-Type: application/octet-stream');
+               header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+               readfile($file);
+           }
+    }
+
+    public function downloadXlsResult()
+    {
+        if (isset($_POST['saveResult'])) {
+                $writer = new XlsWriter();
+                $writer->write();
+//                $fileName = htmlspecialchars($_GET['name']);
+                $fileName = 'result_2018-10-19.xls';
+
+                $filepath = $writer->fileDirectory . $fileName;
+                try{
+                    if (file_exists($filepath)){
+                        $this->file_force_download($filepath);
+                    } else {
+                        throw new \Exception('File Not Found!');
+                    }
+                } catch ( \Exception $e){
+                    echo $e->getMessage();
+                }
+
+                echo $filepath;
+
+            }
+
+//            header('Location:' . $_SERVER['HTTP_REFERER']);
+
+
     }
 
 }

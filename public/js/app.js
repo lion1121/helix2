@@ -306,6 +306,15 @@ document.addEventListener('click', function (e) {
 //     return buf;
 // }
 
-let saveResult = document.getElementById('saveIntoXls').addEventListener('click', function () {
-        start.saveResult('1');
+let saveResult = document.getElementById('save_link').addEventListener('click', function (e) {
+    e.preventDefault();
+    fetch('/download', {
+        method: 'post',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: 'download=' + true
+    })
+        .then(function (res) {
+        })
 });

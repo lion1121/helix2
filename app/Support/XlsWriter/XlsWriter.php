@@ -34,6 +34,7 @@ class XlsWriter implements IWrite
         $activeSheet = $spreadsheet->getActiveSheet();
         $activeSheet->setCellValue('A1', 'New file content')->getStyle('A1')->getFont()->setBold(true);
         $Excel_writer->save(ROOT . DIRECTORY_SEPARATOR . 'public/files/output/' . $this->fileName . '.xls');
+        return $this->fileName . '.xls';
     }
 
 

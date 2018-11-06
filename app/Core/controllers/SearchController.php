@@ -91,21 +91,25 @@ class SearchController
 
     function file_force_download($file) {
            if (file_exists($file)) {
-               header('Content-Description: File Transfer');
-               header('Content-Type: application/octet-stream');
-               header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+//               header('Content-Description: File Transfer');
+//               header('Content-Type: application/octet-stream');
+//               header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+
+               header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
+               header('Content-Disposition: attachment; filename="' . $file . '"');  //File name extension was wrong
+               header("Expires: 0");
+               header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+               header("Cache-Control: private",false);
                readfile($file);
+               exit();
            }
     }
 
     public function downloadXlsResult()
     {
-        if (isset($_POST['saveResult'])) {
+        if (isset($_POST['download'])) {
                 $writer = new XlsWriter();
-                $writer->write();
-//                $fileName = htmlspecialchars($_GET['name']);
-                $fileName = 'result_2018-10-19.xls';
-
+                $fileName =  $writer->write();
                 $filepath = $writer->fileDirectory . $fileName;
                 try{
                     if (file_exists($filepath)){
@@ -116,12 +120,8 @@ class SearchController
                 } catch ( \Exception $e){
                     echo $e->getMessage();
                 }
-
-                echo $filepath;
-
             }
 
-//            header('Location:' . $_SERVER['HTTP_REFERER']);
 
 
     }

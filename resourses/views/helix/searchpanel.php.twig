@@ -64,11 +64,6 @@
                             {% endfor %}
                         </select>
                     </div>
-                    {#<div class="form-group form-check">#}
-                    {#<input type="checkbox" class="form-check-input" id="exampleCheck1" value="1">#}
-                    {#<label class="form-check-label" for="exampleCheck1">Детальний пошук (Потребує більше часу на#}
-                    {#обробку запиту)</label>#}
-                    {#</div>#}
                 </div>
                 <p id="error_field"></p>
                 <button type="submit" id="search_btn" class="btn btn-primary mb-2">Пошук <i id="search_icon"
@@ -81,68 +76,32 @@
             {#Input result of searching from ajax#}
         </section>
     </div>
+
     <div class="row position-relative" id="result_wrapper">
-        <a href="/dowload" id="save_link">download</a>
-        <section class="w-100 position-relative" id="search">
+
+        <a href="#" id="download_result_link" ><i class="far fa-save" id="download_result" data-toggle="tooltip" title="Завантажити результат у вигляді PDF"></i></a>
+        {#<a href="/download?getfile=true" id="download_result_link" ><i class="far fa-save" id="download_result" data-toggle="tooltip" title="Завантажити результат у вигляді Excel!"></i></a>#}
+        <section class="w-100 position-relative " id="search">
+
         </section>
     </div>
 
 </div>
-<section class="container">
-    <div class="row">
-        <div class="col-12">
-            <table class="table" id="tableTest1">
-                <tbody>
-                <tr>
-                    <th>head1</th>
-                    <td>cell1</td>
-                <tr>
-                    <th>head2</th>
-                    <td>cell2</td>
-                </tr>
-                <tr>
-                    <th>head3</th>
-                    <td>cell3</td>
-                </tr>
-                </tbody>
-            </table>
-            <table class="table" id="tableTest">
-                <thead>
-                <tr>
-                    <th>head1</th><th>head2</th>
-                </tr>
 
-                </thead>
-                <tbody>
-                <tr>
-                    <td>cell1</td>
-                    <td>cell2</td>
-                </tr>
-                <tr>
-                    <td>cell44</td>
-                    <td>cell555</td>
-                </tr>
-                <tr>
-                    <td>cell66</td>
-                    <td>cell66</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
 <footer>
     <div class="position-absolute align-bottom bg-info pt-2 pb-2 pl-4 pr-4 btn_up">
         <i class="fas fa-chevron-up"></i>
     </div>
 </footer>
 <script src="/resourses/assets/libs/jquery/jquery.js"></script>
+<script src="/resourses/assets/libs/Popper/popper.js"></script>
+
 <script src="/resourses/assets/libs/bootstrap/js/bootstrap.js"></script>
 <script src="/resourses/assets/libs/imask/imask.js"></script>
-<script src="/resourses/assets/libs/FileSaver.js-master/FileSaver.js"></script>
-<script src="/resourses/assets/libs/SheetJs/xlsx.full.min.js"></script>
-{#<script src="/resourses/assets/libs/SheetJs/"></script>#}
+<script src="/resourses/assets/libs/html2canvas/html2canvas.js"></script>
+<script src="/resourses/assets/libs/jsPDF/jspdf.js"></script>
 <script src="/public/js/app.js"></script>
-
 </body>
+
+
 <?php require_once ROOT . '/resourses/templates/helixfooter.php' ?>

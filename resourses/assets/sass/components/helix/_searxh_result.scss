@@ -10,13 +10,15 @@
   }
 }
 
-
-
-#saveIntoXls {
+#download_result {
   position: absolute;
   top: -41px;
   right: 11px;
   font-size: 25px;
   //display: none;
   cursor: pointer;
+}
+#download_result_link {
+  @include color-link(#000);
+  display: none;
 }

@@ -119,6 +119,9 @@ class formHandler {
                             tbody.appendChild(tr);
                             tr.innerHTML = '<th class="w-25 bg-dark p-2 text-light columnName">' + item + '</th>' + '<td class=" p-2 ">' + el[item] + '</td>';
                         }
+                        //Show download button
+                        let download = document.getElementById('download_result_link');
+                        download.style.display = 'block';
                     });
                 }
             })
@@ -230,8 +233,8 @@ let sendAjaxRequest = document.getElementById('search_btn').addEventListener('cl
     if (formHendler.checkEmptyInputs() === true) {
         formHendler.formDataAjaxPostRequest();
         formHendler.formError.innerHTML = '';
-        let saveIntoXls = document.getElementById('saveIntoXls');
-        saveIntoXls.style.display = 'block';
+        // let saveIntoXls = document.getElementById('saveIntoXls');
+        // saveIntoXls.style.display = 'block';
 
     } else {
         formHendler.formError.classList.add('bg-danger');
@@ -306,15 +309,19 @@ document.addEventListener('click', function (e) {
 //     return buf;
 // }
 
-let saveResult = document.getElementById('save_link').addEventListener('click', function (e) {
-    e.preventDefault();
-    fetch('/download', {
-        method: 'post',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: 'download=' + true
-    })
-        .then(function (res) {
-        })
+let saveResult = document.getElementById('download_result').addEventListener('click', function (e) {
+
+    let tables = document.getElementsByTagName('table');
+    let search = document.getElementById('search');
+    console.table(tables);
+
+   let doc = new jsPDF();
+   doc.fromHTML($('#search').get(0), 20, 20, {'width':500});
+    doc.save('result.pdf')
 });
+
+// ================= ITIN TOOLTIPS ==========================
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+// ================= END TOOLTIPS ==========================

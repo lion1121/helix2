@@ -5,17 +5,17 @@ namespace Core\controllers;
 use Complex\Exception;
 use Core\Models\Helix;
 
-use DOMDocument;
+use PHPHtmlParser\Dom;
 use Support\search\GetDbs;
 use Support\search\GetTableById;
 use Support\Twig\TwigView;
 use Support\XlsWriter\XlsWriter;
 
-
 class SearchController
 {
     use GetDbs;
     use GetTableById;
+
 
     /**
      * Pass available data bases to searchpanel view
@@ -25,10 +25,14 @@ class SearchController
     {
         $helixTables = $this->getDbs();
         $curentDate = \date("Y-m-d");
+        $username = htmlspecialchars($_SESSION['username']);
+        $filename = 'public/files/output/' . 'result_2018-11-07.xls';
         try {
             $twig = new TwigView('/helix/searchpanel.php.twig', [
                 'tables' => $helixTables,
-                'date' => $curentDate
+                'date' => $curentDate,
+                'user' => $username,
+                'filename' => $filename,
             ]);
 
             echo $twig->render();
@@ -86,44 +90,41 @@ class SearchController
             $tableName = $helix->getTableFieldsById($request['id']);
             echo json_encode($tableName);
         }
-        
-    }
-
-    function file_force_download($file) {
-           if (file_exists($file)) {
-//               header('Content-Description: File Transfer');
-//               header('Content-Type: application/octet-stream');
-//               header('Content-Disposition: attachment; filename="' . basename($file) . '"');
-
-               header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
-               header('Content-Disposition: attachment; filename="' . $file . '"');  //File name extension was wrong
-               header("Expires: 0");
-               header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-               header("Cache-Control: private",false);
-               readfile($file);
-               exit();
-           }
-    }
-
-    public function downloadXlsResult()
-    {
-        if (isset($_POST['download'])) {
-                $writer = new XlsWriter();
-                $fileName =  $writer->write();
-                $filepath = $writer->fileDirectory . $fileName;
-                try{
-                    if (file_exists($filepath)){
-                        $this->file_force_download($filepath);
-                    } else {
-                        throw new \Exception('File Not Found!');
-                    }
-                } catch ( \Exception $e){
-                    echo $e->getMessage();
-                }
-            }
-
-
 
     }
+
+//    function file_force_download($file)
+//    {
+//        if (file_exists($file)) {
+//            header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
+//            header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+//            header("Expires: 0");
+//            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+//            header("Cache-Control: private", false);
+//            readfile($file);
+//            exit();
+//        }
+//    }
+
+//    public function downloadXlsResult()
+//    {
+//        if (isset($_GET['getfile'])) {
+//
+//            $writer = new XlsWriter();
+//            $fileName = $writer->write();
+//            $filepath = $writer->fileDirectory . $fileName;
+//            try {
+//                if (file_exists($filepath)) {
+//                    $this->file_force_download($filepath);
+//                } else {
+//                    throw new \Exception('File Not Found!');
+//                }
+//            } catch (\Exception $e) {
+//                echo $e->getMessage();
+//            }
+//        }
+//
+//
+//    }
 
 }

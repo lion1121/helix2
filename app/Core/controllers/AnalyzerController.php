@@ -2,10 +2,6 @@
 
 namespace Core\controllers;
 
-session_start();
-$_SESSION['username'] = 'sergey';
-
-
 use Core\models\Analyze;
 use Support\analyze\CreateTable;
 use Support\analyze\DropTable;

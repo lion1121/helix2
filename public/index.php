@@ -6,8 +6,8 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/helix/analyze', 'AnalyzerController/loadTraffic');
     $r->addRoute('POST', '/helix/analyze', 'AnalyzerController/loadTraffic');
     $r->addRoute('GET', '/{id:\d+}/{num:\d+}', 'AdminController/indexAction');
-    $r->addRoute('POST', '/download', 'SearchController/downloadXlsResult');
-
+//    $r->addRoute('GET', '/download', 'SearchController/downloadXlsResult');
+//
     // Ajax requests
     $r->addRoute('POST', '/ajax/search', 'SearchController/searchFormHandler');
     $r->addRoute('POST', '/ajax/getfields', 'SearchController/getTableFields');
@@ -15,8 +15,13 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('POST', '/ajax/analyze', 'AnalyzerController/analyze');
     $r->addRoute('POST', '/ajax/getallconnections', 'AnalyzerController/renderAllConnection');
     $r->addRoute('POST', '/ajax/getResultTraffic', 'AnalyzerController/getResultFromTrafficAnalyze');
+
 //    $r->addRoute('POST', '/ajax/saveResult', 'AnalyzerController/downloadXlsResult');
 });
+
+session_start();
+$_SESSION['username'] = 'sergey';
+
 
 // Fetch method and URI from somewhere
 $httpMethod = $_SERVER['REQUEST_METHOD'];
